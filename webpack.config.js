@@ -26,7 +26,7 @@ module.exports = {
     loaders: [
       {test: /\.jsx?$/, loader: 'babel', exclude: /node_modules/},
       {test: /\.css$/, loader: 'style!css?module&localIdentName=[name]__[local]'},
-      {test: /\.(png|jpg|gif)$/, loader: 'file'}
+      {test: /\.(png|jpg|gif|svg)$/, loader: 'file'}
     ]
   },
 
