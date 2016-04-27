@@ -27,7 +27,9 @@ export default class MapView extends Component {
 
   render() {
     return (
-      <div ref="container" className={styles.root}/>
+      <div ref="container" className={styles.root}>
+        {this.props.children}
+      </div>
     )
   }
 

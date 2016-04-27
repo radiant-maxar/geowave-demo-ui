@@ -1,0 +1,16 @@
+.standard {
+  z-index: 100;
+  position: absolute;
+  padding: 1em;
+  border-radius: 3px;
+  background-color: white;
+  background-image: linear-gradient(to bottom, white 20%, #eee);
+  box-shadow:
+    0 5px 10px rgba(0,0,0,.3),
+    0 0 0 1px rgba(0,0,0,.1);
+}
+
+.bottom-right {
+  bottom: 50px;
+  right: 50px;
+}

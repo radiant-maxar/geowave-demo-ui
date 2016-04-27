@@ -1,0 +1,33 @@
+.root {
+  composes: standard from '../styles/common/overlays.css';
+  composes: bottom-right from '../styles/common/overlays.css';
+  z-index: 900;
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  text-align: right;
+  padding: 10px 30px;
+  background-color: rgba(255,255,255, .5);
+}
+
+.root h2 {
+  color: black;
+  font-size: 100px;
+  font-weight: 100;
+  text-shadow: 0 3px forestgreen;
+}
+
+.times {
+  font-size: 13px;
+  color: forestgreen;
+}
+
+.now,
+.then {
+  font-weight: bold;
+}
+
+.now::after {
+  content: ' – ';
+
+}
