@@ -93,8 +93,7 @@ export default class MapView extends Component {
     const {origin} = this.state;
     if (origin && origin !== previousState.origin) {
       this.map.flyTo(origin, 15, {
-        duration: 0.1,
-        easeLinearity: 0.1
+        duration: 1.5
       })
     }
   }
