@@ -11,13 +11,13 @@ const ORIGIN_MARKER = leaflet.icon({
   iconUrl: originMarker,
   iconSize: [100, 100],
   iconAnchor: [50, 100]
-});
+})
 
 const DEST_MARKER = leaflet.icon({
   iconUrl: destinationMarker,
   iconSize: [100, 100],
   iconAnchor: [50, 100]
-});
+})
 
 export default class MapView extends Component {
   constructor() {
@@ -52,7 +52,7 @@ export default class MapView extends Component {
         {this.props.children}
         <Mask className={styles.mask} visible={!this.state.origin}>
           <div className={styles.locatingMessage}>
-            <h2>So where are you anyway?</h2>
+            <h2>Where are you anyway?</h2>
             Please wait while we find your location...
           </div>
         </Mask>
@@ -77,7 +77,7 @@ export default class MapView extends Component {
   }
 
   _clearMarkers() {
-    this.markers.eachLayer(l => l.remove())
+    this.markers.clearLayers()
   }
 
   _drawMarkers() {
@@ -102,7 +102,7 @@ export default class MapView extends Component {
   }
 
   _recenterIfNeeded(_, previousState) {
-    const {origin} = this.state;
+    const {origin} = this.state
     if (origin && origin !== previousState.origin) {
       this.map.flyTo(origin, 15, {
         duration: 1.5
