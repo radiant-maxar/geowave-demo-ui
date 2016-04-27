@@ -36,8 +36,8 @@ export default class MapView extends Component {
 
   componentDidMount() {
     this.map = leaflet.map(this.refs.container, {
-      center: [0, 0],
-      zoom: 3,
+      center: [38.5, -74],
+      zoom: 5,
       layers: [
         leaflet.tileLayer.provider('OpenStreetMap.Mapnik'),
         this.markers
