@@ -38,19 +38,12 @@ export default class MapView extends Component {
   }
 
   componentDidMount() {
-    this.map = leaflet.map(this.refs.container, {
-      center: [38.5, -74],
-      zoom: 5,
-      layers: [
-        leaflet.tileLayer.provider('OpenStreetMap.Mapnik'),
-        this.markers
-      ]
-    })
+    this._initializeMap()
+    this._drawMarkers()
     this._activateTooltip()
-
     this.map.on('click', this._clicked)
     this.map.on('locationfound', this._located)
-    this._locateUser()
+    this.map.locate()
   }
 
   render() {
@@ -67,6 +60,10 @@ export default class MapView extends Component {
     )
   }
 
+  //
+  // Internal API
+  //
+
   _activateTooltip() {
     const pane = this.map.createPane('tooltip')
     pane.classList.add(styles.tooltipPane)
@@ -77,23 +74,6 @@ export default class MapView extends Component {
     this.map.on('mouseover', this._mouseEnter)
     this.map.on('mouseout', this._mouseExit)
     this.map.on('mousemove', this._mouseMove)
-  }
-
-  _mouseEnter() {
-    this.map.getPane('tooltip').classList.add(styles.isMousedOver)
-  }
-
-  _mouseExit() {
-    this.map.getPane('tooltip').classList.remove(styles.isMousedOver)
-  }
-
-  _mouseMove(event) {
-    const {x, y} = event.containerPoint
-    this.tooltip.setAttribute('style', `transform: translate(${x + 10}px, ${y - 20}px)`)
-  }
-
-  _clicked({latlng: {lat, lng}}) {
-    this.setState({destination: {lat, lng}})
   }
 
   _clearMarkers() {
@@ -110,12 +90,15 @@ export default class MapView extends Component {
     }
   }
 
-  _locateUser() {
-    this.map.locate()
-  }
-
-  _located({latlng: {lat, lng}}) {
-    this.setState({origin: {lat, lng}})
+  _initializeMap() {
+    this.map = leaflet.map(this.refs.container, {
+      center: [38.5, -74],
+      zoom: 5,
+      layers: [
+        leaflet.tileLayer.provider('OpenStreetMap.Mapnik'),
+        this.markers
+      ]
+    })
   }
 
   _recenterIfNeeded(_, previousState) {
@@ -125,6 +108,31 @@ export default class MapView extends Component {
         duration: 1.5
       })
     }
+  }
+
+  //
+  // Events
+  //
+
+  _clicked({latlng: {lat, lng}}) {
+    this.setState({destination: {lat, lng}})
+  }
+
+  _located({latlng: {lat, lng}}) {
+    this.setState({origin: {lat, lng}})
+  }
+
+  _mouseEnter() {
+    this.map.getPane('tooltip').classList.add(styles.isMousedOver)
+  }
+
+  _mouseExit() {
+    this.map.getPane('tooltip').classList.remove(styles.isMousedOver)
+  }
+
+  _mouseMove(event) {
+    const {x, y} = event.containerPoint
+    this.tooltip.setAttribute('style', `transform: translate(${x + 10}px, ${y - 20}px)`)
   }
 }
 
