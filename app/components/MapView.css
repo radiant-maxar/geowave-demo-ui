@@ -14,3 +14,22 @@
   background-color: hsla(200, 100%, 33%, 0.5);
   color: white;
 }
+
+.tooltipPane {
+  display: none;
+}
+
+.tooltipPane.isMousedOver {
+  display: block;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.81);
+  color: black;
+  padding: 1em;
+  white-space: nowrap;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 3px 3px rgba(0,0,0,.2);
+  font-size: 16px;
+}

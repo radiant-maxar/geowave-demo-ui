@@ -26,6 +26,9 @@ export default class MapView extends Component {
     this.markers = leaflet.layerGroup()
     this._located = this._located.bind(this)
     this._clicked = this._clicked.bind(this)
+    this._mouseEnter = this._mouseEnter.bind(this)
+    this._mouseExit = this._mouseExit.bind(this)
+    this._mouseMove = this._mouseMove.bind(this)
   }
 
   componentDidUpdate() {
@@ -43,6 +46,7 @@ export default class MapView extends Component {
         this.markers
       ]
     })
+    this._activateTooltip()
 
     this.map.on('click', this._clicked)
     this.map.on('locationfound', this._located)
@@ -61,6 +65,31 @@ export default class MapView extends Component {
         </Mask>
       </div>
     )
+  }
+
+  _activateTooltip() {
+    const pane = this.map.createPane('tooltip')
+    pane.classList.add(styles.tooltipPane)
+    this.tooltip = document.createElement('tooltip')
+    this.tooltip.className = styles.tooltip
+    this.tooltip.textContent = 'Click anywhere to set destination'
+    pane.appendChild(this.tooltip)
+    this.map.on('mouseover', this._mouseEnter)
+    this.map.on('mouseout', this._mouseExit)
+    this.map.on('mousemove', this._mouseMove)
+  }
+
+  _mouseEnter() {
+    this.map.getPane('tooltip').classList.add(styles.isMousedOver)
+  }
+
+  _mouseExit() {
+    this.map.getPane('tooltip').classList.remove(styles.isMousedOver)
+  }
+
+  _mouseMove(event) {
+    const {x, y} = event.containerPoint
+    this.tooltip.setAttribute('style', `transform: translate(${x + 10}px, ${y - 20}px)`)
   }
 
   _clicked({latlng: {lat, lng}}) {
