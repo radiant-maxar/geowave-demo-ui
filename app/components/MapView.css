@@ -15,6 +15,13 @@
   color: white;
 }
 
+.flightPath {
+  stroke: red;
+  stroke-width: 2px;
+  stroke-dasharray: 10 10;
+  box-shadow: 1px 1px black;
+}
+
 .tooltipPane {
   display: none;
 }

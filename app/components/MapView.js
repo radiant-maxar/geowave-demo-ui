@@ -88,6 +88,9 @@ export default class MapView extends Component {
     if (destination) {
       this.markers.addLayer(leaflet.marker(destination, {icon: DEST_MARKER}))
     }
+    if (destination && origin) {
+      this.markers.addLayer(leaflet.polyline([origin, destination], {className: styles.flightPath}))
+    }
   }
 
   _initializeMap() {
