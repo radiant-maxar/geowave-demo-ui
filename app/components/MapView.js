@@ -2,6 +2,7 @@ import 'leaflet-providers'
 import '!style!css!../../node_modules/leaflet/dist/leaflet.css'
 import React, {Component} from 'react'
 import leaflet from 'leaflet'
+import Mask from './Mask'
 import destinationMarker from '../images/destination-marker.svg'
 import originMarker from '../images/origin-marker.svg'
 import styles from './MapView.css'
@@ -53,6 +54,12 @@ export default class MapView extends Component {
     return (
       <div ref="container" className={styles.root}>
         {this.props.children}
+        <Mask className={styles.mask} visible={!this.state.origin}>
+          <div className={styles.locatingMessage}>
+            <h2>So where are you anyway?</h2>
+            Please wait while we find your location...
+          </div>
+        </Mask>
       </div>
     )
   }

@@ -8,3 +8,9 @@
   background-color: transparent;
   overflow: hidden;
 }
+
+.mask {
+  z-index: 9000;
+  background-color: hsla(200, 100%, 33%, 0.5);
+  color: white;
+}
