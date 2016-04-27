@@ -1,0 +1,9 @@
+@viewport { width: device-width; }
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}

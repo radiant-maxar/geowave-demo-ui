@@ -1,0 +1,16 @@
+html {
+  font-family: -apple-system-body, 'Helvetica Neue', sans-serif;
+  font-weight: 200;
+  font-size: 14px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: -apple-system-body, 'Helvetica Neue', sans-serif;
+  font-weight: 200;
+  margin: 0;
+}
