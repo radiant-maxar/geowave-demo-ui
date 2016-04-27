@@ -47,7 +47,6 @@ export default class MapView extends Component {
     this.map.on('click', this._clicked)
     this.map.on('locationfound', this._located)
     this._locateUser()
-
   }
 
   render() {
@@ -64,8 +63,8 @@ export default class MapView extends Component {
     )
   }
 
-  _clicked({latlng}) {
-    this.setState({destination: latlng})
+  _clicked({latlng: {lat, lng}}) {
+    this.setState({destination: {lat, lng}})
   }
 
   _clearMarkers() {
@@ -86,8 +85,8 @@ export default class MapView extends Component {
     this.map.locate()
   }
 
-  _located({latlng}) {
-    this.setState({origin: latlng})
+  _located({latlng: {lat, lng}}) {
+    this.setState({origin: {lat, lng}})
   }
 
   _recenterIfNeeded(_, previousState) {
