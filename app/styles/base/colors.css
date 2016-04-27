@@ -1,19 +1,10 @@
 @viewport { width: device-width; }
 
 html {
-  background-color: hsl(88, 100%, 45%);
+  background-color: forestgreen;
   color: #555;
 }
 
 a {
   color: black;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: hsl(150, 100%, 25%);
 }
