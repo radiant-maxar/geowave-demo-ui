@@ -12,6 +12,10 @@ export default class Application extends Component {
     this._fetchDurations = debounce(this._fetchDurations.bind(this), 500)
   }
 
+  componentDidMount() {
+    this._fetchDurations()
+  }
+
   render() {
     return (
       <main className={styles.root}>
