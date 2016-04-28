@@ -87,8 +87,8 @@
 
 .bronx {
   composes: borough;
-  fill: yellow;
-  stroke: yellow;
+  fill: orange;
+  stroke: orange;
 }
 
 .manhattan {
