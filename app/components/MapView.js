@@ -106,6 +106,7 @@ export default class MapView extends Component {
       ],
       minZoom: 11
     })
+    this.map.attributionControl.addAttribution(`Neighborhoods from <a href="http://catalog.opendata.city/organization/pediacities">CivicDashboards</a>`)
   }
 
   _updateMarkers() {
