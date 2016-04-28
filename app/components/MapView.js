@@ -98,7 +98,7 @@ export default class MapView extends Component {
       center: [40.747777160820704, -73.9482879638672],
       zoom: 12,
       layers: [
-        leaflet.tileLayer.provider('OpenStreetMap.Mapnik')
+        leaflet.tileLayer.provider('Stamen.TonerLite')
       ],
       maxBounds: [
         [41.083, -74.460],
