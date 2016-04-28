@@ -48,3 +48,52 @@
   box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 3px 3px rgba(0,0,0,.2);
   font-size: 16px;
 }
+
+.borough {
+  stroke-width: 1;
+  stroke-dasharray: 2px 2px;
+}
+
+.borough:hover {
+  fill-opacity: .5;
+}
+
+.queens {
+  composes: borough;
+  fill: green;
+  fill-opacity: .3;
+  stroke: green;
+  stroke-opacity: .7;
+}
+
+.statenIsland {
+  composes: borough;
+  fill: magenta;
+  fill-opacity: .3;
+  stroke: magenta;
+  stroke-opacity: .7;
+}
+
+.brooklyn {
+  composes: borough;
+  fill: blue;
+  fill-opacity: .3;
+  stroke: blue;
+  stroke-opacity: .7;
+}
+
+.bronx {
+  composes: borough;
+  fill: green;
+  fill-opacity: .3;
+  stroke: green;
+  stroke-opacity: .7;
+}
+
+.manhattan {
+  composes: borough;
+  fill: red;
+  fill-opacity: .3;
+  stroke: red;
+  stroke-opacity: .7;
+}

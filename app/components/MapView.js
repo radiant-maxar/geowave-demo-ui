@@ -36,6 +36,7 @@ export default class MapView extends Component {
 
   componentDidMount() {
     this._initializeMap()
+    this._fetchNeighborhoodOverlays()
     this._attachMarkers()
     this.map.on('locationfound', this._located)
     this.map.locate()
@@ -72,6 +73,24 @@ export default class MapView extends Component {
       .on('dragend', this._destinationChanged)
     this.markers.line = leaflet.polyline([origin, destination], {className: styles.flightPath})
       .addTo(this.map)
+  }
+
+  _fetchNeighborhoodOverlays() {
+    fetch('/nyc-taxi/shapes/neighborhoods.geojson')
+      .then(response => response.json())
+      .then(geojson => {
+        leaflet.geoJson(geojson, {
+          style(feature) {
+            switch (feature.properties.borough) {
+              case 'Manhattan': return {className: styles.manhattan}
+              case 'Bronx': return {className: styles.bronx}
+              case 'Brooklyn': return {className: styles.brooklyn}
+              case 'Queens': return {className: styles.queens}
+              case 'Staten Island': return {className: styles.statenIsland}
+            }
+          }
+        }).addTo(this.map)
+      })
   }
 
   _initializeMap() {
