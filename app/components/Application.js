@@ -21,8 +21,8 @@ export default class Application extends Component {
                  destination={this.state.destination}
                  originChanged={this._originChanged}
                  destinationChanged={this._destinationChanged}>
-          {this.state.duration && <Duration seconds={this.state.duration}/>}
         </MapView>
+        {this.state.duration && <Duration seconds={this.state.duration}/>}
       </main>
     )
   }

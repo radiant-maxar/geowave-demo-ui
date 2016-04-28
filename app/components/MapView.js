@@ -45,7 +45,6 @@ export default class MapView extends Component {
     return (
       <div className={styles.root}>
         <div ref="container" className={styles.map}/>
-        {this.props.children}
         <Mask className={styles.mask} visible={!this.props.origin}>
           <div className={styles.locatingMessage}>
             <h2>Where are you anyway?</h2>
@@ -139,7 +138,6 @@ export default class MapView extends Component {
 }
 
 MapView.propTypes = {
-  children: React.PropTypes.object,
   className: React.PropTypes.string,
   destination: React.PropTypes.object,
   origin: React.PropTypes.object,
