@@ -7,23 +7,30 @@
   text-align: right;
   padding: 10px 30px;
   background-color: rgba(255,255,255, .5);
+  overflow: hidden;
 }
 
-.root h2 {
-  color: black;
-  font-size: 100px;
+.root .duration {
+  margin: -10px -30px 0;
+  padding: .25em .5em;
+  background-image: linear-gradient(to bottom, limegreen, forestgreen);
+  border-bottom: 1px solid rgba(0,0,0, .2);
+  color: white;
+  font-size: 50px;
   font-weight: 100;
-  text-shadow: 0 3px forestgreen;
+  text-shadow: 0 3px rgba(0,0,0,.2);
 }
 
-.times {
-  font-size: 13px;
-  color: forestgreen;
+.timestamps {
+  margin-top: .5em;
+  text-align: center;
+  font-size: 18px;
+  color: #296529;
 }
 
 .now,
 .then {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .now::after {

@@ -11,7 +11,7 @@ export default class Duration extends Component {
     return (
       <div className={styles.root}>
         <h2 className={styles.duration}>~{future.fromNow(true)}</h2>
-        <div className={styles.actualTimes}>
+        <div className={styles.timestamps}>
           <span className={styles.now}>{now.format(TIME_FORMAT)}</span>
           <span className={styles.then}>{future.format(TIME_FORMAT)}</span>
         </div>
