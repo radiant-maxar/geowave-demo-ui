@@ -39,7 +39,7 @@ export default class MapView extends Component {
     this._fetchNeighborhoodOverlays()
     this._attachMarkers()
     this.map.on('locationfound', this._located)
-    this.map.locate()
+    // this.map.locate()
   }
 
   render() {
