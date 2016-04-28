@@ -10,6 +10,15 @@ module.exports = {
   entry: './index.js',
   devtool: 'cheap-module-eval-source-map',
 
+  devServer: {
+    proxy: {
+      '/nyc-taxi/*': {
+        changeOrigin: true,
+        target: 'http://localhost:8079'
+      }
+    }
+  },
+
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
@@ -38,6 +47,9 @@ module.exports = {
       title: `${pkg.name} v${pkg.version}`,
       hash: true,
       xhtml: true
+    }),
+    new webpack.ProvidePlugin({
+      fetch: 'isomorphic-fetch'
     })
   ]
 }
