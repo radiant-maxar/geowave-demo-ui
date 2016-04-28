@@ -27,6 +27,7 @@ export default class MapView extends Component {
     this._originChanged = this._originChanged.bind(this)
     this._destinationChanged = this._destinationChanged.bind(this)
     this._updateLinePosition = this._updateLinePosition.bind(this)
+    this._neighborhoodClicked = this._neighborhoodClicked.bind(this)
   }
 
   componentDidUpdate() {
@@ -78,6 +79,7 @@ export default class MapView extends Component {
       .then(response => response.json())
       .then(geojson => {
         leaflet.geoJson(geojson, {
+          onEachFeature: (_, layer) => layer.on('click', this._neighborhoodClicked),
           style(feature) {
             switch (feature.properties.borough) {
               case 'Manhattan': return {className: styles.manhattan}
@@ -124,6 +126,10 @@ export default class MapView extends Component {
 
   _located({latlng: {lat, lng}}) {
     this.props.originChanged({lat, lng})
+  }
+
+  _neighborhoodClicked({latlng: {lat, lng}}) {
+    this.props.destinationChanged({lat, lng})
   }
 
   _originChanged(event) {
