@@ -101,8 +101,8 @@ export default class MapView extends Component {
         leaflet.tileLayer.provider('OpenStreetMap.Mapnik')
       ],
       maxBounds: [
-        [40.92, -74.18],
-        [40.58, -73.57]
+        [41.083, -74.460],
+        [40.497, -73.251]
       ],
       minZoom: 11
     })
