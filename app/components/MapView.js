@@ -23,7 +23,6 @@ export default class MapView extends Component {
   constructor() {
     super()
     this.markers = {origin: null, destination: null, line: null}
-    this.state = {origin: {lat: 40.78, lng: -73.96}, destination: {lat: 40.65, lng: -73.78}}
     this._located = this._located.bind(this)
     this._originChanged = this._originChanged.bind(this)
     this._destinationChanged = this._destinationChanged.bind(this)
@@ -47,7 +46,7 @@ export default class MapView extends Component {
       <div className={styles.root}>
         <div ref="container" className={styles.map}/>
         {this.props.children}
-        <Mask className={styles.mask} visible={!this.state.origin}>
+        <Mask className={styles.mask} visible={!this.props.origin}>
           <div className={styles.locatingMessage}>
             <h2>Where are you anyway?</h2>
             Please wait while we find your location...
@@ -62,7 +61,7 @@ export default class MapView extends Component {
   //
 
   _attachMarkers() {
-    const {origin, destination} = this.state
+    const {origin, destination} = this.props
     this.markers.origin = leaflet.marker(origin, {icon: ORIGIN_MARKER, draggable: true})
       .addTo(this.map)
       .on('drag', this._updateLinePosition)
@@ -109,7 +108,7 @@ export default class MapView extends Component {
   }
 
   _updateMarkers() {
-    const {origin, destination} = this.state
+    const {origin, destination} = this.props
     this.markers.origin.setLatLng(origin)
     this.markers.destination.setLatLng(destination)
     this.markers.line.setLatLngs([origin, destination])
@@ -125,7 +124,7 @@ export default class MapView extends Component {
   }
 
   _located({latlng: {lat, lng}}) {
-    this.setState({origin: {lat, lng}})
+    this.props.originChanged({lat, lng})
   }
 
   _originChanged(event) {
@@ -142,6 +141,8 @@ export default class MapView extends Component {
 MapView.propTypes = {
   children: React.PropTypes.object,
   className: React.PropTypes.string,
-  originChanged: React.PropTypes.func,
-  destinationChanged: React.PropTypes.func
+  destination: React.PropTypes.object,
+  origin: React.PropTypes.object,
+  destinationChanged: React.PropTypes.func,
+  originChanged: React.PropTypes.func
 }
