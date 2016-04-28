@@ -27,7 +27,6 @@
   stroke: red;
   stroke-width: 2px;
   stroke-dasharray: 10 10;
-  box-shadow: 1px 1px black;
 }
 
 .tooltipPane {
@@ -50,50 +49,50 @@
 }
 
 .borough {
-  stroke-width: 1;
-  stroke-dasharray: 2px 2px;
+  fill-opacity: .2;
+  stroke-width: 0;
+  stroke-dasharray: 6px 6px;
+  stroke-opacity: 1;
+  transition: .2s cubic-bezier(0.5, 1.2, 0.8, 1.4);
+  transition-property: fill-opacity;
 }
 
 .borough:hover {
-  fill-opacity: .5;
+  fill-opacity: .4;
+  stroke-width: 1;
+  animation: marching-ants 1s forwards linear infinite;
+}
+
+@keyframes marching-ants {
+  to { stroke-dashoffset: 12px; }
 }
 
 .queens {
   composes: borough;
   fill: green;
-  fill-opacity: .3;
   stroke: green;
-  stroke-opacity: .7;
 }
 
 .statenIsland {
   composes: borough;
   fill: magenta;
-  fill-opacity: .3;
   stroke: magenta;
-  stroke-opacity: .7;
 }
 
 .brooklyn {
   composes: borough;
   fill: blue;
-  fill-opacity: .3;
   stroke: blue;
-  stroke-opacity: .7;
 }
 
 .bronx {
   composes: borough;
-  fill: green;
-  fill-opacity: .3;
-  stroke: green;
-  stroke-opacity: .7;
+  fill: yellow;
+  stroke: yellow;
 }
 
 .manhattan {
   composes: borough;
   fill: red;
-  fill-opacity: .3;
   stroke: red;
-  stroke-opacity: .7;
 }
