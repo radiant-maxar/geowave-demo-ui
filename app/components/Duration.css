@@ -1,39 +1,38 @@
 .root {
-  composes: standard bottom-right from '../styles/common/overlays.css';
-  z-index: 900;
-  position: absolute;
-  bottom: 50px;
-  right: 50px;
-  text-align: right;
-  padding: 10px 30px;
-  background-color: rgba(255,255,255, .5);
-  overflow: hidden;
+  composes: standard from '../styles/common/overlays.css';
 }
 
-.root .duration {
-  margin: -10px -30px 0;
-  padding: .25em .5em;
-  background-image: linear-gradient(to bottom, limegreen, forestgreen);
+.duration {
+  flex: 1;
+  align-items: center;
+  padding-right: .5em;
+  background-image: linear-gradient(to bottom, hsl(182, 68%, 54%), hsl(210, 75%, 59%));
   border-bottom: 1px solid rgba(0,0,0, .2);
-  color: white;
-  font-size: 50px;
+  font-size: 36px;
   font-weight: 100;
   text-shadow: 0 3px rgba(0,0,0,.2);
+  text-align: right;
+  color: white;
 }
 
-.timestamps {
-  margin-top: .5em;
-  text-align: center;
+.timestamp {
+  width: 90px;
+  margin-left: 10px;
   font-size: 18px;
-  color: #296529;
-}
-
-.now,
-.then {
   font-weight: 500;
+  color: hsl(192, 91%, 36%);
 }
 
-.now::after {
-  content: ' – ';
+.clock {
+  height: 1em;
+  margin-right: .25em;
+  vertical-align: middle;
+  fill: hsl(192, 91%, 36%);
+}
 
+.label {
+  font-size: .8em;
+  display: block;
+  line-height: 1em;
+  margin-top: .5em;
 }
