@@ -9,6 +9,7 @@ export default class Application extends Component {
     this.state = {duration: null, origin: {lat: 40.78, lng: -73.96}, destination: {lat: 40.65, lng: -73.78}}
     this._destinationChanged = this._destinationChanged.bind(this)
     this._originChanged = this._originChanged.bind(this)
+    this._fetchDurations = debounce(this._fetchDurations.bind(this), 500)
   }
 
   render() {
@@ -28,14 +29,39 @@ export default class Application extends Component {
   }
 
   //
+  // Internals
+  //
+
+  _fetchDurations() {
+    const {origin, destination} = this.state
+    const now = new Date().toISOString()
+    fetch(`/nyc-taxi/tripInfo?startLat=${origin.lat}&startLon=${origin.lng}&destLat=${destination.lat}&destLon=${destination.lng}&startTime=${now}`)
+      .then(response => response.json())
+      .then(([[, duration]]) => {
+        console.debug('travel times:', duration)
+        this.setState({duration})
+      })
+  }
+
+  //
   // Events
   //
 
-  _destinationChanged(origin, destination) {
-    console.debug('@_destinationChanged', origin, destination);
+  _destinationChanged(destination) {
+    this.setState({destination})
+    this._fetchDurations()
   }
 
-  _originChanged(origin, destination) {
-    console.debug('@_originChanged', origin, destination);
+  _originChanged(origin) {
+    this.setState({origin})
+    this._fetchDurations()
+  }
+}
+
+function debounce(callback, ms) {
+  let id
+  return () => {
+    clearTimeout(id)
+    id = setTimeout(callback, ms)
   }
 }
