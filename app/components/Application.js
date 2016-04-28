@@ -7,8 +7,8 @@ export default class Application extends Component {
   constructor() {
     super()
     this.state = {duration: null}
-    this._pointsChanged = this._pointsChanged.bind(this)
-    this._inputsSubmitted = this._inputsSubmitted.bind(this)
+    this._destinationChanged = this._destinationChanged.bind(this)
+    this._originChanged = this._originChanged.bind(this)
   }
 
   render() {
@@ -17,16 +17,23 @@ export default class Application extends Component {
         <header className={styles.header}>
           <h1>geowave-demo-ui</h1>
         </header>
-        <MapView pointsChanged={this._pointsChanged}>
+        <MapView originChanged={this._originChanged}
+                 destinationChanged={this._destinationChanged}>
           {this.state.duration && <Duration seconds={this.state.duration}/>}
         </MapView>
       </main>
     )
   }
 
-  _pointsChanged(origin, destination) {
-    console.debug('@_pointsChanged', origin, destination);
+  //
+  // Events
+  //
+
+  _destinationChanged(origin, destination) {
+    console.debug('@_destinationChanged', origin, destination);
   }
 
-  _inputsSubmitted() {}
+  _originChanged(origin, destination) {
+    console.debug('@_originChanged', origin, destination);
+  }
 }

@@ -22,27 +22,21 @@ const DEST_MARKER = leaflet.icon({
 export default class MapView extends Component {
   constructor() {
     super()
-    this.state = {origin: null, destination: null}
-    this.markers = leaflet.layerGroup()
+    this.markers = {origin: null, destination: null, line: null}
+    this.state = {origin: {lat: 40.78, lng: -73.96}, destination: {lat: 40.65, lng: -73.78}}
     this._located = this._located.bind(this)
-    this._clicked = this._clicked.bind(this)
-    this._mouseEnter = this._mouseEnter.bind(this)
-    this._mouseExit = this._mouseExit.bind(this)
-    this._mouseMove = this._mouseMove.bind(this)
+    this._originChanged = this._originChanged.bind(this)
+    this._destinationChanged = this._destinationChanged.bind(this)
+    this._updateLinePosition = this._updateLinePosition.bind(this)
   }
 
   componentDidUpdate() {
-    this._clearMarkers()
-    this._drawMarkers()
-    this._recenterIfNeeded(...arguments)
-    this._notifyParentIfNeeded()
+    this._updateMarkers()
   }
 
   componentDidMount() {
     this._initializeMap()
-    this._drawMarkers()
-    this._activateTooltip()
-    this.map.on('click', this._clicked)
+    this._attachMarkers()
     this.map.on('locationfound', this._located)
     this.map.locate()
   }
@@ -66,92 +60,69 @@ export default class MapView extends Component {
   // Internal API
   //
 
-  _activateTooltip() {
-    const pane = this.map.createPane('tooltip')
-    pane.classList.add(styles.tooltipPane)
-    this.tooltip = document.createElement('tooltip')
-    this.tooltip.className = styles.tooltip
-    this.tooltip.textContent = 'Click anywhere to set destination'
-    pane.appendChild(this.tooltip)
-    this.map.on('mouseover', this._mouseEnter)
-    this.map.on('mouseout', this._mouseExit)
-    this.map.on('mousemove', this._mouseMove)
-  }
-
-  _clearMarkers() {
-    this.markers.clearLayers()
-  }
-
-  _drawMarkers() {
+  _attachMarkers() {
     const {origin, destination} = this.state
-    if (origin) {
-      this.markers.addLayer(leaflet.marker(origin, {icon: ORIGIN_MARKER}))
-    }
-    if (destination) {
-      this.markers.addLayer(leaflet.marker(destination, {icon: DEST_MARKER}))
-    }
-    if (destination && origin) {
-      this.markers.addLayer(leaflet.polyline([origin, destination], {className: styles.flightPath}))
-    }
+    this.markers.origin = leaflet.marker(origin, {icon: ORIGIN_MARKER, draggable: true})
+      .addTo(this.map)
+      .on('drag', this._updateLinePosition)
+      .on('dragend', this._originChanged)
+    this.markers.destination = leaflet.marker(destination, {icon: DEST_MARKER, draggable: true})
+      .addTo(this.map)
+      .on('drag', this._updateLinePosition)
+      .on('dragend', this._destinationChanged)
+    this.markers.line = leaflet.polyline([origin, destination], {className: styles.flightPath})
+      .addTo(this.map)
   }
 
   _initializeMap() {
     this.map = leaflet.map(this.refs.container, {
-      center: [38.5, -74],
-      zoom: 5,
+      center: [40.747777160820704, -73.9482879638672],
+      zoom: 12,
       layers: [
-        leaflet.tileLayer.provider('OpenStreetMap.Mapnik'),
-        this.markers
-      ]
+        leaflet.tileLayer.provider('OpenStreetMap.Mapnik')
+      ],
+      maxBounds: [
+        [40.92, -74.18],
+        [40.58, -73.57]
+      ],
+      minZoom: 11
     })
   }
 
-  _notifyParentIfNeeded() {
-    const {origin, destination} = this.state;
-    if (origin && destination) {
-      this.props.pointsChanged({origin, destination})
-    }
-  }
-
-  _recenterIfNeeded(_, previousState) {
-    const {origin} = this.state
-    if (origin && origin !== previousState.origin) {
-      this.map.flyTo(origin, 15, {
-        duration: 1.5
-      })
-    }
+  _updateMarkers() {
+    const {origin, destination} = this.state
+    this.markers.origin.setLatLng(origin)
+    this.markers.destination.setLatLng(destination)
+    this.markers.line.setLatLngs([origin, destination])
   }
 
   //
   // Events
   //
 
-  _clicked({originalEvent: {target}, latlng: {lat, lng}}) {
-    if (!target.classList.contains('leaflet-marker-icon')) {
-      this.setState({destination: {lat, lng}})
-    }
+  _destinationChanged(event) {
+    const {lat, lng} = event.target.getLatLng()
+    this.props.destinationChanged({lat, lng})
   }
 
   _located({latlng: {lat, lng}}) {
     this.setState({origin: {lat, lng}})
   }
 
-  _mouseEnter() {
-    this.map.getPane('tooltip').classList.add(styles.isMousedOver)
+  _originChanged(event) {
+    const {lat, lng} = event.target.getLatLng()
+    this.props.originChanged({lat, lng})
   }
 
-  _mouseExit() {
-    this.map.getPane('tooltip').classList.remove(styles.isMousedOver)
-  }
-
-  _mouseMove(event) {
-    const {x, y} = event.containerPoint
-    this.tooltip.setAttribute('style', `transform: translate(${x + 10}px, ${y - 20}px)`)
+  _updateLinePosition() {
+    const {origin, destination, line} = this.markers;
+    line.setLatLngs([origin.getLatLng(), destination.getLatLng()])
   }
 }
 
 MapView.propTypes = {
   children: React.PropTypes.object,
   className: React.PropTypes.string,
-  pointsChanged: React.PropTypes.func
+  originChanged: React.PropTypes.func,
+  destinationChanged: React.PropTypes.func
 }
