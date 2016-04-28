@@ -35,6 +35,7 @@ export default class MapView extends Component {
     this._clearMarkers()
     this._drawMarkers()
     this._recenterIfNeeded(...arguments)
+    this._notifyParentIfNeeded()
   }
 
   componentDidMount() {
@@ -48,7 +49,8 @@ export default class MapView extends Component {
 
   render() {
     return (
-      <div ref="container" className={styles.root}>
+      <div className={styles.root}>
+        <div ref="container" className={styles.map}/>
         {this.props.children}
         <Mask className={styles.mask} visible={!this.state.origin}>
           <div className={styles.locatingMessage}>
@@ -104,6 +106,13 @@ export default class MapView extends Component {
     })
   }
 
+  _notifyParentIfNeeded() {
+    const {origin, destination} = this.state;
+    if (origin && destination) {
+      this.props.pointsChanged({origin, destination})
+    }
+  }
+
   _recenterIfNeeded(_, previousState) {
     const {origin} = this.state
     if (origin && origin !== previousState.origin) {
@@ -143,5 +152,6 @@ export default class MapView extends Component {
 
 MapView.propTypes = {
   children: React.PropTypes.object,
-  className: React.PropTypes.string
+  className: React.PropTypes.string,
+  pointsChanged: React.PropTypes.func
 }

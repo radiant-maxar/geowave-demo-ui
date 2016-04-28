@@ -6,7 +6,8 @@ import styles from './Application.css'
 export default class Application extends Component {
   constructor() {
     super()
-    this._inputsChanged = this._inputsChanged.bind(this)
+    this.state = {duration: null}
+    this._pointsChanged = this._pointsChanged.bind(this)
     this._inputsSubmitted = this._inputsSubmitted.bind(this)
   }
 
@@ -16,14 +17,16 @@ export default class Application extends Component {
         <header className={styles.header}>
           <h1>map-thingy</h1>
         </header>
-        <MapView>
-          <Duration seconds={363}/>
+        <MapView pointsChanged={this._pointsChanged}>
+          {this.state.duration && <Duration seconds={this.state.duration}/>}
         </MapView>
       </main>
     )
   }
 
-  _inputsChanged() {}
+  _pointsChanged(origin, destination) {
+    console.debug('@_pointsChanged', origin, destination);
+  }
 
   _inputsSubmitted() {}
 }
