@@ -117,8 +117,10 @@ export default class MapView extends Component {
   // Events
   //
 
-  _clicked({latlng: {lat, lng}}) {
-    this.setState({destination: {lat, lng}})
+  _clicked({originalEvent: {target}, latlng: {lat, lng}}) {
+    if (!target.classList.contains('leaflet-marker-icon')) {
+      this.setState({destination: {lat, lng}})
+    }
   }
 
   _located({latlng: {lat, lng}}) {
