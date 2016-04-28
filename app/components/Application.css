@@ -5,22 +5,3 @@
   right: 0;
   bottom: 0;
 }
-
-.header {
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background-image:
-    linear-gradient(to bottom, hsl(82, 100%, 42%), hsl(131, 100%, 33%));
-}
-
-.header h1 {
-  color: white;
-  text-shadow: 0 1px rgba(0,0,0,.2);
-  font-weight: bold;
-}

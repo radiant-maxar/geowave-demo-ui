@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import MapView from './MapView'
+import GeoWaveLogo from './GeoWaveLogo'
 import Duration from './Duration'
 import styles from './Application.css'
 
@@ -19,15 +20,15 @@ export default class Application extends Component {
   render() {
     return (
       <main className={styles.root}>
-        <header className={styles.header}>
-          <h1>geowave-demo-ui</h1>
-        </header>
         <MapView origin={this.state.origin}
                  destination={this.state.destination}
                  originChanged={this._originChanged}
                  destinationChanged={this._destinationChanged}>
         </MapView>
         {this.state.duration && <Duration seconds={this.state.duration}/>}
+        <footer className={styles.footer}>
+          <GeoWaveLogo/>
+        </footer>
       </main>
     )
   }
