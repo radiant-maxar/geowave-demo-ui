@@ -101,8 +101,8 @@ export default class MapView extends Component {
         leaflet.tileLayer.provider('Stamen.TonerLite')
       ],
       maxBounds: [
-        [41.083, -74.460],
-        [40.497, -73.251]
+        [41.10005163093046, -74.5147705078125],
+        [40.31513750307456, -73.37493896484374]
       ],
       minZoom: 11
     })
