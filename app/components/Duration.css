@@ -1,6 +1,5 @@
 .root {
-  composes: standard from '../styles/common/overlays.css';
-  composes: bottom-right from '../styles/common/overlays.css';
+  composes: standard bottom-right from '../styles/common/overlays.css';
   z-index: 900;
   position: absolute;
   bottom: 50px;

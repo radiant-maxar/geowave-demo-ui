@@ -15,7 +15,7 @@ export default class Application extends Component {
     return (
       <main className={styles.root}>
         <header className={styles.header}>
-          <h1>map-thingy</h1>
+          <h1>geowave-demo-ui</h1>
         </header>
         <MapView pointsChanged={this._pointsChanged}>
           {this.state.duration && <Duration seconds={this.state.duration}/>}
