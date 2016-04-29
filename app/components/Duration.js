@@ -24,5 +24,5 @@ export default class Duration extends Component {
 }
 
 Duration.propTypes = {
-  duration: React.PropTypes.object.isRequired
+  duration: React.PropTypes.array.isRequired
 }

@@ -90,6 +90,7 @@ export default class MapView extends Component {
             }
           }
         }).addTo(this.map)
+        this.markers.line.bringToFront()
       })
   }
 
@@ -139,7 +140,7 @@ export default class MapView extends Component {
   }
 
   _updateLinePosition() {
-    const {origin, destination, line} = this.markers;
+    const {origin, destination, line} = this.markers
     line.setLatLngs([origin.getLatLng(), destination.getLatLng()])
   }
 }

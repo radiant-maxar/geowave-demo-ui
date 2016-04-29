@@ -24,7 +24,7 @@
 }
 
 .flightPath {
-  stroke: red;
+  stroke: #ff6e34;
   stroke-width: 2px;
   stroke-dasharray: 10 10;
 }
